@@ -1,5 +1,5 @@
 {
-    "name": "phergie/phergie-irc-plugin-react-bofh",
+    "name": "phergie/phergie-irc-plugin-react-devans",
     "description": "Phergie plugin for Pull excuses from bastard operator from hell",
     "keywords": [ "phergie", "irc", "bot", "plugin" ],
     "license": "BSD-2-Clause",
@@ -14,8 +14,8 @@
     "support": {
         "email": "joe@joeferguson.me",
         "irc": "irc://irc.freenode.net/phergie",
-        "issues": "https://github.com/phergie/phergie-irc-plugin-react-bofh/issues",
-        "source": "https://github.com/phergie/phergie-irc-plugin-react-bofh"
+        "issues": "https://github.com/hellvesper/phergie-irc-plugin-react-devans/issues",
+        "source": "https://github.com/hellvesper/phergie-irc-plugin-react-devans"
     },
     "require": {
         "phergie/phergie-irc-bot-react": "~1",
@@ -30,12 +30,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Phergie\\Irc\\Plugin\\React\\BOFH\\": "src"
+            "Phergie\\Irc\\Plugin\\React\\DEVANS\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Phergie\\Irc\\Tests\\Plugin\\React\\BOFH\\": "tests"
+            "Phergie\\Irc\\Tests\\Plugin\\React\\DEVANS\\": "tests"
         }
     },
     "extra": {
