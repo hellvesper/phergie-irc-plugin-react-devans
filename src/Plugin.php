@@ -2,13 +2,13 @@
 /**
  * Phergie plugin for Pull excuses from bastard operator from hell (phergie-irc-plugin-react-bofh)
  *
- * @link https://github.com/phergie/phergie-irc-plugin-react-bofh for the canonical source repository
+ * @link https://github.com/phergie/phergie-irc-plugin-react-devans for the canonical source repository
  * @copyright Copyright (c) 2015 Joe Ferguson (http://www.joeferguson.me)
  * @license http://phergie.org/license Simplified BSD License
- * @package Phergie\Irc\Plugin\React\BOFH
+ * @package Phergie\Irc\Plugin\React\DEVANS
  */
 
-namespace Phergie\Irc\Plugin\React\BOFH;
+namespace Phergie\Irc\Plugin\React\DEVANS;
 
 use Phergie\Irc\Bot\React\AbstractPlugin;
 use Phergie\Irc\Bot\React\EventQueueInterface as Queue;
@@ -21,7 +21,7 @@ use WyriHaximus\Phergie\Plugin\Url\Url;
  * Plugin class.
  *
  * @category Phergie
- * @package Phergie\Irc\Plugin\React\BOFH
+ * @package Phergie\Irc\Plugin\React\DEVANS
  */
 class Plugin extends AbstractPlugin
 {
@@ -47,8 +47,8 @@ class Plugin extends AbstractPlugin
     public function getSubscribedEvents()
     {
         return [
-            'command.bofh' => 'handleBofhCommand',
-            'command.bofh.help' => 'handleBofhHelpCommand',
+            'command.devans' => 'handleDevansCommand',
+            'command.devans.help' => 'handleDevansHelpCommand',
         ];
     }
 
@@ -56,9 +56,9 @@ class Plugin extends AbstractPlugin
     * @param \Phergie\Irc\Plugin\React\Command\CommandEventInterface $event
     * @param \Phergie\Irc\Bot\React\EventQueueInterface $queue
     */
-    public function handleBofhCommand(Event $event, Queue $queue)
+    public function handleDevansCommand(Event $event, Queue $queue)
     {
-        $this->getLogger()->info('[BOFH] received a new command');
+        $this->getLogger()->info('[DEVANS] received a new command');
 
         $this->fetchExcuse($event, $queue);
     }
@@ -67,10 +67,10 @@ class Plugin extends AbstractPlugin
     * @param \Phergie\Irc\Plugin\React\Command\CommandEventInterface $event
     * @param \Phergie\Irc\Bot\React\EventQueueInterface $queue
     */
-    public function handleBofhHelpCommand(Event $event, Queue $queue)
+    public function handleDevansHelpCommand(Event $event, Queue $queue)
     {
         $messages = [
-            'Usage: bofh'
+            'Usage: devans'
         ];
         foreach ($messages as $message) {
             $queue->ircPrivmsg($event->getSource(), $message);
@@ -97,7 +97,7 @@ class Plugin extends AbstractPlugin
                     }
 
                     if ($data->getStatusCode() !== 200) {
-                        $this->getLogger()->notice('[BOFH] Site responded with error', [
+                        $this->getLogger()->notice('[DEVANS] Site responded with error', [
                             'code' => $data->getStatusCode(),
                             /*'message' => $data['error']['message'],*/
 //                            'message' => var_dump($data->getStatusCode),
@@ -106,11 +106,11 @@ class Plugin extends AbstractPlugin
                         $queue->ircPrivmsg($event->getSource(), 'Sorry, no excuse was found');
                         return;
                     }
-                    $this->getLogger()->info('[BOFH] Site successful return');
+                    $this->getLogger()->info('[DEVANS] Site successful return');
                 },
             'rejectCallback' =>
                 function ($data, $headers, $code) use ($event, $queue) {
-                    $this->getLogger()->notice('[BOFH] Site failed to respond');
+                    $this->getLogger()->notice('[DEVANS] Site failed to respond');
                     $queue->ircPrivmsg($event->getSource(), 'Sorry, there was a problem communicating with the site');
                 },
         ]);
