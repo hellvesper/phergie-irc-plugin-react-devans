@@ -13,7 +13,8 @@ namespace Phergie\Irc\Plugin\React\BOFH;
 use Phergie\Irc\Bot\React\AbstractPlugin;
 use Phergie\Irc\Bot\React\EventQueueInterface as Queue;
 use Phergie\Irc\Plugin\React\Command\CommandEventInterface as Event;
-use WyriHaximus\Phergie\Plugin\Http\Request;
+//use WyriHaximus\Phergie\Plugin\Http\Request;
+use Phergie\Plugin\Http\Request;
 use WyriHaximus\Phergie\Plugin\Url\Url;
 
 /**
@@ -95,10 +96,12 @@ class Plugin extends AbstractPlugin
                         $queue->ircPrivmsg($event->getSource(), $result->item(0)->nodeValue);
                     }
 
-                    if ($code !== 200) {
+                    if ($data->getStatusCode() !== 200) {
                         $this->getLogger()->notice('[BOFH] Site responded with error', [
-                            'code' => $code,
-                            'message' => $data['error']['message'],
+                            'code' => $data->getStatusCode(),
+                            /*'message' => $data['error']['message'],*/
+//                            'message' => var_dump($data->getStatusCode),
+                            'message' => $data->getReasonPhrase(),
                         ]);
                         $queue->ircPrivmsg($event->getSource(), 'Sorry, no excuse was found');
                         return;
