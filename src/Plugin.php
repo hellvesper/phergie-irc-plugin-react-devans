@@ -79,7 +79,7 @@ class Plugin extends AbstractPlugin
 
     public function fetchExcuse($event, $queue)
     {
-        $url = 'http://pages.cs.wisc.edu/~ballard/bofh/bofhserver.pl';
+        $url = 'http://devanswers.ru';
 
         $request = new Request([
             'url' => $url,
@@ -90,10 +90,11 @@ class Plugin extends AbstractPlugin
                     $dom->loadHTML($data);
                     $xpath = new \DOMXpath($dom);
                     // XPath to the excuse text
-                    $result = $xpath->query('/html/body/center/font[2]');
+                    $result = $xpath->query('/html/head/script[6]');
 
                     if ($result->length > 0) {
-                        $queue->ircPrivmsg($event->getSource(), $result->item(0)->nodeValue);
+//                        $queue->ircPrivmsg($event->getSource(), $result->item(0)->nodeValue);
+                        $queue->ircPrivmsg($event->getSource(), print_r($result));
                     }
 
                     if ($data->getStatusCode() !== 200) {
